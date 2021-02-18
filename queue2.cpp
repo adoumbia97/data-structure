@@ -207,7 +207,7 @@ void Queue(){
       
     case '2' : {
       int elt;
-      string wantToinsert="y";
+      string wantToinsert="f";
       do
       {
         cout<<"\nEnter an elt :\n";
@@ -215,7 +215,7 @@ void Queue(){
         q.Enqueue(elt);
         cout <<"Do you want to insert again? \n";
         cin >>wantToinsert;
-        if(wantToinsert=="n"){wantToinsert="n";} 
+        if(wantToinsert=="y"){wantToinsert="y";} 
         /* code */
       } while (wantToinsert=="y");
         

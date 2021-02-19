@@ -3,6 +3,7 @@
 #include "queue2.cpp"
 #include "sort.cpp"
 #include "merge.cpp"
+#include "sequence.cpp"
 using namespace std;
 
 
@@ -26,6 +27,7 @@ int main(){
     cout<<"\n Q : Queue ";
     cout<<"\n D : Selection Sort ";
     cout<<"\n M : Selection Merge ";
+    cout<<"\n R : Sequential Search ";
     
     
     cout<<"\nEnter your choice : ";
@@ -35,6 +37,7 @@ int main(){
     else if(choice == 'Q') Queue();
     else if(choice == 'D') Sort();
     else if(choice == 'M') Merge();
+    else if(choice == 'R') SeqSearch();
     else if(choice == 'E') exit(0);
    
     

@@ -4,7 +4,10 @@
 #include "sort.cpp"
 #include "merge.cpp"
 #include "sequence.cpp"
+#include "binary.cpp"
+#include "inorder.cpp"
 using namespace std;
+#include <cstring>
 
 
 //#####################################################################################
@@ -28,6 +31,8 @@ int main(){
     cout<<"\n D : Selection Sort ";
     cout<<"\n M : Selection Merge ";
     cout<<"\n R : Sequential Search ";
+    cout<<"\n B : Binary Search ";
+    cout<<"\n T : Tree Traversal ";
     
     
     cout<<"\nEnter your choice : ";
@@ -38,6 +43,8 @@ int main(){
     else if(choice == 'D') Sort();
     else if(choice == 'M') Merge();
     else if(choice == 'R') SeqSearch();
+    else if(choice == 'B') BinarySearch();
+    else if(choice == 'T') TreeOrder();
     else if(choice == 'E') exit(0);
    
     

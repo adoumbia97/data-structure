@@ -49,8 +49,12 @@ void merge(int *arr, int low, int high, int mid)
 // read input array and call mergesort
 int Merge()
 {
+     cout <<"\t \t \t \t ----------- --------------------\n" ;
+     cout <<"\t \t \t \t "<< "Welcome to Merging sort \n" ;
+     cout <<"\t \t \t \t ----------- --------------------\n" ;
+    
     int myarray[30], num;
-    cout<<"Enter number of elements to be sorted:";
+    cout<<"Enter number of elements to be sorted: \n";
     cin>>num;
     cout<<"Enter "<<num<<" elements to be sorted:";
     for (int i = 0; i < num; i++) { cin>>myarray[i];

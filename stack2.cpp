@@ -1,25 +1,25 @@
 #include<iostream>
 #include<cstring>
 #include<cstdlib>
-#define MAX_DATA_SIZE 1000
-#define SIZE 10
 
 using namespace std;
 
 
 
 //########################################################
-//#                Stack function                         #
+//#                Programme                         #
 //########################################################
 
  
-
+//Creation of the class Stactype for creating stack
  class StackType{
    
-  int capacity;
-  int *arr;
-  int top;
-  int count;
+//Local variables of the class stack:
+
+  int capacity; //Size of the array which implements the stack
+  int *arr;     //Array which implements the stack
+  int top;      //To identify the top of the stack
+  int count;    // To count the number of the inside the stack
   
    
  public: //public variables--------------
@@ -34,105 +34,151 @@ using namespace std;
       void Push(int item);
       void Pop();
       void Display();
-
      int Peek();
      int NbElements();
-     
-     
-     
      int size();
-   
-
   
  };
 
 
+ /*
 
+  * Constructor of the class Stacktype
+  * The parameter size is the size of the array which implements the object
+  * At initial, the number of element in the table representant by the variable count=0
+  * The top of the stack is -1 at initial
 
- StackType::StackType(int size){ //clas constructure
-    arr=new int(size);
-     
-     capacity = size;
-     top = -1;
-     count = 0;
+ */
+
+ StackType::StackType(int size){ 
+    arr=new int(size);  
+    top = -1;           
+    capacity=size; 
      
      
    }
    
    
-   //remove the stack top--------------------  
+   /*   
+        Method Pop which removes element from the top of the stack
+        At each remove, the value of top decreases in 1
+        The number of the element in the stack(count) decreases in 1
+        it uses the function writeInformation and writeResult from the file write
+   */
    
    void StackType::Pop(){
      if(IsEmpty()){
-       cout<<"\nThe stack is empty. '\n";
-       exit(EXIT_FAILURE);
+       writeInformation("Error !!!","The Stack is Empty");   
      }
-     cout<<"\nRemoving "<<arr[top]<<"\n";
-     top--; 
-     count--;
+     else
+     {
+
+      writeResult("Removing",arr[top], "Removed");
+      top--; 
+      
+     }
+       
    }
    
-   //add an item--------------------  
+    /*   
+        Method Push to insert element into the stack
+        The parameter needed is the item to add in the stack:Integer
+        At each insertion, the top and the number of element in the stack increases in 1
+        it uses the function writeInformation and writeInsertionfrom the file write
+   */
    
    void StackType::Push(int item){
      if(IsFull()){
-       cout<<"\nThe stack is full. '\n";
+      writeInformation("Error !!!","The Stack is full"); 
 
      }
      else{
-      cout<<item<<" Inserted\n";
+      writeInsertion(item);
       ++top;
       arr[top] = item;
-      count++;
+   
 
      }
-       
-     
      
    }
    
-   //make empty the stack--------------------  
-   
+   /*   
+        Method Pop which rmakes the stack empy
+        No parameter needed
+        after empytying the stack initialise the value of top and count
+
+   */
    void StackType::MakeEmpty(){
      top = -1;
+     writeInformation("","Stack  Emptied"); 
    };
    
-   //return top element --------------------  
+  /*
+    Method Peek: Return the value value top of the stack :Integer
+    No need of parameter
+  */
    
    int StackType::Peek(){
      if(IsEmpty()){
-       cout<<"\nThe stack is empty.\n";
-       exit(EXIT_FAILURE);
+      
+       writeInformation("Error !!!","The Stack is Empty"); 
      }
-     cout<<"\nThe stack top is : ";
+     writeResult("The top is : ", arr[top],"");
+      
      return arr[top];
      
    }
    
-   // The number of elements in the stack---------------
+   /*
+    Method NbElemennts: Return the number of element in the stack : Integer
+    No need of parameter
+  */
    
    int StackType::NbElements(){
      return top+1;
    }
    
-   //stack size--------------------  
+
    
+   /*
+    Method size: Return the zise of the array which implements the stack : Integer
+    No need of parameter
+  */
    int StackType::size(){
      return capacity;
    }
    
-   //Display the stack--------------------   
+   /*
+    Method Display: Print in the screen the elements inside the stack
+    It first checks if the stack is empty or not
+    No need of parameter
+    it uses the functions writeResult and writeInformation from the file write
+  */
    
    void StackType::Display(){
-     cout << "\nThe Stack size is " <<size()<< " and the items actually inside are "  <<NbElements()<< " :\n"; 
-     if(top>=0){
-       for ( int i=0; i <=top; i++)
-         cout << "\n " << i << "\t" <<arr[i] <<"\n";
-       
-       
-     }
+    if(!IsEmpty())
+    {
+      writeResult("The size of the stackt is : ", size(),"The items actually inside are : ", NbElements());
+      if(top>=0){
+        cout <<"\n\t\t\t\t\t\t\t\t" << "Indices " << "\t" <<"Values" <<"\n";
+         for ( int i=0; i <=top; i++)
+        cout <<"\n\t\t\t\t\t\t\t\t  " << i << "\t\t  " <<arr[i] <<"\n";
+         
+       }
+      cout<<"\n\t\t\t\t\t\t\t---------------------------------------- \n";
+    }
+    else{
+      writeInformation("Error !!!","The Stack is Empty");
+    }
+      
+     
    };
-   //check if the stack is empty--------------------  
+
+   /*
+    Method IsEmpty: Checks either the stack is empty or not
+    No need of parameter
+    Retunr boolean 
+  */ 
    
    bool StackType::IsEmpty(){
      return (top == -1);
@@ -144,96 +190,113 @@ using namespace std;
    }
 
 
+
+  /*
+    Procedure Stack: Which is called in the main program
+    Ask the use the size of the stack: Size of the array
+    Ask either to implements randomly or not
+    Menu of the stack for the manipulation of the stack
+  */
  
  void Stack(){
+  //Declaration of variables
+    char option = '+'; 
+    int size = 0;
+    string randomly;
    
-   //Home Menu-----------------------------------
+
+    writeTitle("Welcome to stack secion");
+    cout <<"\nEnter the stack size :\n";
+    cin >> size; 
+    StackType s(size);
+    cout<<"\n------------------------\n";
+
+    // Implements the stack randomly or not
+    cout<<"Do you want to fill it randomly? Y/N \n";
+    cin >>randomly;
+    if(randomly=="Y" || randomly=="y")
+      {
+        for (int i = 0; i < size; ++i)
+        {
+          s.Push(rand() % 100);
+        }
+      }
    
-   cout<<"\n-----------------------------------------";
-   cout<<"\n|    DOUMBIA Crespin Welcomes you to the Stack function     |";
-   cout<<"\n-----------------------------------------";
-   cout<<"\n ";
-   char option = '+'; //character declaration  
-   int size = 0; // stack size initialization
-   cout <<"\nEnter the stack size :\n";
-   cin >> size; //this will let the user enter the stack size-------- 
-   StackType s(size); //create a stack with the typed size
-   cout<<"\n------------------------";
+   // Menu of the stack
    
-   // Menu options----------
-   
-   while (option != 's'){ 
+   while (option != 's' && option!='S'){      //Display the menu untill the user enters "S" or "s"
      cout<<("\nSelect a stack operation :\n");
      cout<<"\n------------------------";
-     cout<<"\n1 : Create a stack.\n ";
-     cout<<"\n2 : Insert a new item.\n ";
-     cout<<"\n3 : Get the stack top.\n ";
-     cout<<"\n4 : Remove the stack top.\n ";
-     cout<<"\n5 : Empty the stack .\n ";
-     cout<<"\n6 : Test wether the stack is empty or not.\n ";
-     cout<<"\n7 : Test wether the stack is full or not.\n ";
-     cout<<"\n8 : Display the stack content.\n ";
+     cout<<"\n1 : Insert a new item.\n ";
+     cout<<"\n2 : Get the stack top.\n ";
+     cout<<"\n3 : Remove the stack top.\n ";
+     cout<<"\n4 : Empty the stack .\n ";
+     cout<<"\n5 : Test wether the stack is empty or not.\n ";
+     cout<<"\n6 : Test wether the stack is full or not.\n ";
+     cout<<"\n7 : Display the stack content.\n ";
      cout<<"\nS : Stop.\n ";
      cout<<"\nEnter an option.\n ";
      cin>> option;//this will let the user select one option.---------------
+
      
-     //option implementation --------------------  ------
+     //Treatement of the option chosen by the user --------------------  ------
      
      switch(option){
      
-     //option create a stack
+           
+         case '1' :  //option Insert a new item
+         {
+           int item;
+           cout<<"\nEnter an item :\n";
+           cin >> item;
+           s.Push(item); break;
+         }
+           
+           
+         case '2': {  //option Get the stack top
+
+           cout<<s.Peek()<<"\n";break;
+         }
+           
+            
+           
+         case '3': {  //option Remove the stack top------- 
+           s.Pop(); 
+           break;
+         }
+           
+           
+         case '4' : //option Empty the stack------------
+         {
+          s.MakeEmpty();
+          break;
+         
+         }
+           
+           
+         case '5' : //option Test wether the stack is empty or not------------
+         {
+          if(s.IsEmpty())
+           writeInformation("","The Stack is Empty"); 
+          else writeInformation("","The Stack is not Empty"); break;
+         }
+           
+           
+           
+         case '6' :     //option Test wether the stack is full or not------------
+         {
+          if(s.IsFull())
+            writeInformation("","The Stack is full"); 
+          else writeInformation("","The Stack is  not full"); ; break;
+         }
+           
+           
+           
+         case '7' : {s.Display(); break;} //option Dispaly the stack content------------
      
-     case '1' : { int  s(size);
-       cout<<"\n Stack created.\n";break;}
-       
-       //option Insert a new item
-       
-     case '2' : {
-       int item;
-       cout<<"\nEnter an item :\n";
-       cin >> item;
-       s.Push(item); break;}
-       
-       //option Get the stack top---------
-       
-     case '3': {
-       cout<<s.Peek()<<"\n";break;
-     }
-       
-       //option Remove the stack top-------  
-       
-     case '4': {
-       s.Pop(); 
-       cout<<"\nTop removed.\n";break;
-     }
-       
-       //option Empty the stack------------
-       
-     case '5' : {s.MakeEmpty(); 
-       cout<<"\nStack emptied.\n"; break;}
-       
-       //option Test wether the stack is empty or not------------
-       
-     case '6' : {if(s.IsEmpty())
-       cout<<"\nThe stack is empty.\n";
-     else cout<<"\nThe stack is not empty.\n"; break;}
-       
-       //option Test wether the stack is full or not------------
-       
-     case '7' : {if(s.IsFull())
-       cout<<"\nThe stack is full.\n";
-     else cout<<"\nThe stack is not full.\n"; break;}
-       
-       //option Dispaly the stack content------------
-       
-     case '8' : {s.Display(); break;
-     
-     //option stop
-     
-     s:;
-     }
+         }
        
      } 
      
-   }
+   
  }

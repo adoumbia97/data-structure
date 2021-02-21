@@ -1,4 +1,15 @@
 #include <bits/stdc++.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <boost/algorithm/string.hpp>
+#include <string>
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+
+
+
+#include "write.cpp"
 #include "stack2.cpp"
 #include "queue2.cpp"
 #include "sort.cpp"
@@ -6,12 +17,12 @@
 #include "sequence.cpp"
 #include "binary.cpp"
 #include "inorder.cpp"
-using namespace std;
-#include <cstring>
+
 
 
 //#####################################################################################
-//#                                      Main program                                 #
+//#                                      Software : Data Structure                                #
+//												Version 1.0.0
 //#####################################################################################
 
 int main(){
@@ -19,26 +30,22 @@ int main(){
   char choice = '+';
   char option = '+';
   //General menu content--------------------
-  cout<<"\n---------------------------------------- ";
-  cout <<"\n| Fofovi Crespin MOUTO welcomes you to execute his program ?        |";
-  cout<<"\n---------------------------------------- ";
-  cout<<"\n ";
+  writeTitle("Welcome to the program : Data Structure v1.0.0", "by Abdramane DOUMBIA");
   while(!((choice == 'e') || (choice == 'e'))){
   cout<<"\nSelect one of the menus below\n";
     cout<<"\n-------------------------------";
-    cout<<"\n S : Stack ";
-    cout<<"\n Q : Queue ";
-    cout<<"\n D : Selection Sort ";
-    cout<<"\n M : Selection Merge ";
-    cout<<"\n R : Sequential Search ";
-    cout<<"\n B : Binary Search ";
-    cout<<"\n T : Tree Traversal ";
-    
-    
+    writeChoice("S","Stack");
+    writeChoice("Q","Queue");
+    writeChoice("M","Selection Sort");
+    writeChoice("R","Sequential Merge");
+    writeChoice("B","Binary Search");
+    writeChoice("T","Tree Traversal");
+    writeChoice("E","Exit");
     cout<<"\nEnter your choice : ";
-    cin>>choice;
-    choice= toupper(choice);
-    if(choice == 'S') Stack();
+    cin>>choice; //Get the choice of the user 					
+    choice= toupper(choice);	//Put the choice of the user in a uppercase to avoid writing mistake
+
+    if(choice == 'S') Stack();	//Traitement of the choice of the user by calling the appopriate function
     else if(choice == 'Q') Queue();
     else if(choice == 'D') Sort();
     else if(choice == 'M') Merge();
@@ -47,10 +54,6 @@ int main(){
     else if(choice == 'T') TreeOrder();
     else if(choice == 'E') exit(0);
    
-    
- //   return 0;
-    
-   // }
 }
   return 0;
 }

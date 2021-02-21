@@ -6,17 +6,15 @@
  
 using namespace std;
 #define MAX 2
+#define MAX_DATA_SIZE 1000
 
 class QueueType{ // class declaration
   
   
   int number_of_elements;
   int arr[MAX_DATA_SIZE];
-
-
   int rear;
   int front;
-  int a[MAX];
   int counter;
   
 public: //public variables
@@ -34,11 +32,6 @@ public: //public variables
   int NbElements();
   int Size();
   void result(string result);
-  
-  
-  
-  
-  
   
 };
 
@@ -132,10 +125,11 @@ QueueType::QueueType(int size){ //class constructor
         cout<<" \n \t \t \t \t ################### Queue is empty ###################\n";
       }
       else{
-         cout<<"\n \t \t \t \t ################### Queue elements are : \t ###################\n";
+         cout << "\n\t\t\t\t The Stack size is " <<number_of_elements<< " and the items actually inside are "  <<Size()<< " :\n";
+         
          for (int i = front; i <= rear; i++)
-         cout<<arr[i]<<"\t";
-         cout<<endl;
+         cout << "\n \t\t\t\t" << "\t\t" <<arr[i] <<"\n";
+        
       }
 
   
@@ -164,16 +158,25 @@ void Queue(){
   
   //Home Menu-------------------------------------------------------
   
-  cout<<"\n-----------------------------------------";
-  cout<<"\n|     Welcome to the Queue function of fofvi    |\n";
-  cout<<"\n-----------------------------------------";
-  cout<<"\n ";
+  writeTitle("Welcome to Queue secion");
   char option = '+'; //character declaration
   int size = 0; //queue size initialization
   cout <<"\nEnter the queue size :\n";
   cin >> size; // this will allow the user to choose the size of the queue
   QueueType q(size); //create a queue with the size chosen by the user
   cout<<"\n------------------------\n";
+  string randomly;
+    cout<<"Do you want to fill it randomly? Y/N \n";
+    cin >>randomly;
+
+    if(randomly=="Y" || randomly=="y")
+    {
+      for (int i = 0; i < size; ++i)
+      {
+        q.Enqueue(rand() % 100);
+        /* code */
+      }
+    }
 // Queue operations defintions --------------------------------------
   while (option != 's'){
     cout<<("\n \t \tSelect a queue operation :\n");
@@ -208,16 +211,12 @@ void Queue(){
     case '2' : {
       int elt;
       string wantToinsert="f";
-      do
-      {
+    
         cout<<"\nEnter an elt :\n";
         cin >> elt;
         q.Enqueue(elt);
-        cout <<"Do you want to insert again? \n";
-        cin >>wantToinsert;
-        if(wantToinsert=="y"){wantToinsert="y";} 
-        /* code */
-      } while (wantToinsert=="y");
+       
+      
         
       break;}
       //option Get the queue front

@@ -1,10 +1,14 @@
 
-// C++ code to linearly search x in arr[]. If x
-// is present then return its location, otherwise
-// return -1
- 
 #include <iostream>
 using namespace std;
+
+/*
+* Functoin to search an item in an array in sequential sort
+* Parameter needed is the array, the number of elemet in the array (n)
+* The item to be searched
+* Return the index of the element in the array if it is present or -1
+
+*/
  
 int search(int arr[], int n, int x)
 {
@@ -15,25 +19,32 @@ int search(int arr[], int n, int x)
     return -1;
 }
  
-// Driver code
+/*
+  Function SeqSearch called from the main program
+  Offer the possibility to the user to define the number of element in the array  
+*/
 int SeqSearch(void)
 {
-    cout <<"\t \t \t \t ----------- --------------------\n" ;
-    cout <<"\t \t \t \t "<< "Welcome to sequential search \n" ;
-    cout <<"\t \t \t \t ----------- --------------------\n" ;
-    
+    writeTitle("Welcome to sequential search ");
     int n;
     string choice;
     int target;
     cout <<"\t \t \t \t Enter the number of Element in the table\n";
     cin >>n;
-    int arr[n];
+     // Check the value from the user is an integer
+    while(cin.fail())                                    
+    {
+      cout <<"The value you enter is not correct \n";
+      cin.clear();
+      cin.ignore(256,'\n');
+      cin >> n;
+    }
+    int arr[n];                                         
     do
     {
-        cout <<"\t \t \t \t \n 1 - Create the table \n";
-        cout <<"\t \t \t \t \n  2 - Exit \n";
+        writeChoice("1","Create the table");
+        writeChoice("2","Exit");
         cin >>choice;
-
         if(choice=="1")   //Creation of the table in 
         {
             cout <<"\t \t \t \t Enter the "<<n<<" value  of the table: \n";
@@ -41,28 +52,26 @@ int SeqSearch(void)
             {
                 int value;
                 cin >> value;
+                while(cin.fail())     //Check the value from the user is an integer                                  
+                  {
+                    cout <<"The value you enter is not correct \n";
+                    cin.clear();
+                    cin.ignore(256,'\n');
+                    cin >> value;
+                  }
                 arr[i]=value;
-                /* code */
+           
             }
-            //Now look for the element
-            cout <<"Now enter the value to search in the table \n";
+            cout <<"Now enter the value to search in the table \n";          //Now look for the element
             cin >>target;
             int result = search(arr, n, target);
                 (result == -1)
                 ? cout << "\t\t\t\t\t Element is not present in array \n"
                 : cout << "\t\t\t\t\t Element is present at index " << result <<"\n";
-            
-
         }
 
-        /* code */
     } while (choice!="2");
-
-        
-    return 0;
-            
-
-    // Function call
-    
+ 
+    return 0;  
         
 }

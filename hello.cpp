@@ -16,7 +16,8 @@
 #include "merge.cpp"
 #include "sequence.cpp"
 #include "binary.cpp"
-#include "inorder.cpp"
+#include "treeTraversal.cpp"
+#include "graph.h"
 
 
 
@@ -36,10 +37,12 @@ int main(){
     cout<<"\n-------------------------------";
     writeChoice("S","Stack");
     writeChoice("Q","Queue");
-    writeChoice("M","Selection Sort");
-    writeChoice("R","Sequential Merge");
+    writeChoice("D","Selection Sort");
+    writeChoice("M","Merging Sort");
+    writeChoice("R","Sequential Search");
     writeChoice("B","Binary Search");
     writeChoice("T","Tree Traversal");
+    writeChoice("G","Graph  Traversal");
     writeChoice("E","Exit");
     cout<<"\nEnter your choice : ";
     cin>>choice; //Get the choice of the user 					
@@ -52,6 +55,7 @@ int main(){
     else if(choice == 'R') SeqSearch();
     else if(choice == 'B') BinarySearch();
     else if(choice == 'T') TreeOrder();
+    else if(choice == 'G') Graph();
     else if(choice == 'E') exit(0);
    
 }

@@ -1,13 +1,5 @@
-#include<iostream>
-#include<cstring>
-#include<cstdlib>
-
-using namespace std;
-
-
-
 //########################################################
-//#                Programme                         #
+//#               Section of STack                       #
 //########################################################
 
  
@@ -33,7 +25,7 @@ using namespace std;
       bool IsFull();
       void Push(int item);
       void Pop();
-      void Display();
+      void DisplayStack();
      int Peek();
      int NbElements();
      int size();
@@ -103,7 +95,7 @@ using namespace std;
    }
    
    /*   
-        Method Pop which rmakes the stack empy
+        Method MakeEmpty which makes the stack empy
         No parameter needed
         after empytying the stack initialise the value of top and count
 
@@ -123,8 +115,10 @@ using namespace std;
       
        writeInformation("Error !!!","The Stack is Empty"); 
      }
-     writeResult("The top is : ", arr[top],"");
-      
+     else{
+      writeResult("The top is : ", arr[top],"");
+
+     }
      return arr[top];
      
    }
@@ -149,29 +143,27 @@ using namespace std;
    }
    
    /*
-    Method Display: Print in the screen the elements inside the stack
+    Method DisplayStack: Print in the screen the elements inside the stack
     It first checks if the stack is empty or not
     No need of parameter
     it uses the functions writeResult and writeInformation from the file write
   */
    
-   void StackType::Display(){
+   void StackType::DisplayStack(){
     if(!IsEmpty())
     {
       writeResult("The size of the stackt is : ", size(),"The items actually inside are : ", NbElements());
       if(top>=0){
         cout <<"\n\t\t\t\t\t\t\t\t" << "Indices " << "\t" <<"Values" <<"\n";
          for ( int i=0; i <=top; i++)
-        cout <<"\n\t\t\t\t\t\t\t\t  " << i << "\t\t  " <<arr[i] <<"\n";
+          cout <<"\n\t\t\t\t\t\t\t\t  " << i << "\t\t  " <<arr[i] <<"\n";
          
        }
       cout<<"\n\t\t\t\t\t\t\t---------------------------------------- \n";
     }
     else{
       writeInformation("Error !!!","The Stack is Empty");
-    }
-      
-     
+    }   
    };
 
    /*
@@ -207,11 +199,26 @@ using namespace std;
 
     writeTitle("Welcome to stack secion");
     cout <<"\nEnter the stack size :\n";
-    cin >> size; 
+    cin >> size;
+
+
+    // Check the value from the user is an integer
+    while(cin.fail())                                    
+    {
+      cout <<"The value you enter is not correct \n";
+      cin.clear();
+      cin.ignore(256,'\n');
+      cin >> size;
+    }
+
+
+    //Creation of the object
     StackType s(size);
     cout<<"\n------------------------\n";
+    
 
-    // Implements the stack randomly or not
+
+    // Implementation of the stack randomly or not
     cout<<"Do you want to fill it randomly? Y/N \n";
     cin >>randomly;
     if(randomly=="Y" || randomly=="y")
@@ -221,19 +228,31 @@ using namespace std;
           s.Push(rand() % 100);
         }
       }
+      else{
+      for (int i = 0; i < size; ++i)
+      {
+        int value;
+        cout <<"Enter the elements \n";
+        cin >> value;
+
+        s.Push(value);
+        /* code */
+      }
+    }
    
    // Menu of the stack
    
    while (option != 's' && option!='S'){      //Display the menu untill the user enters "S" or "s"
      cout<<("\nSelect a stack operation :\n");
      cout<<"\n------------------------";
-     cout<<"\n1 : Insert a new item.\n ";
-     cout<<"\n2 : Get the stack top.\n ";
-     cout<<"\n3 : Remove the stack top.\n ";
-     cout<<"\n4 : Empty the stack .\n ";
-     cout<<"\n5 : Test wether the stack is empty or not.\n ";
-     cout<<"\n6 : Test wether the stack is full or not.\n ";
-     cout<<"\n7 : Display the stack content.\n ";
+     cout<<"\n1 : Create a stack.\n ";
+     cout<<"\n2 : Insert a new item.\n ";
+     cout<<"\n3 : Get the stack top.\n ";
+     cout<<"\n4 : Remove the stack top.\n ";
+     cout<<"\n5 : Empty the stack .\n ";
+     cout<<"\n6 : Test wether the stack is empty or not.\n ";
+     cout<<"\n7:  Test wether the stack is full or not.\n ";
+     cout<<"\n8 : Display the stack content.\n ";
      cout<<"\nS : Stop.\n ";
      cout<<"\nEnter an option.\n ";
      cin>> option;//this will let the user select one option.---------------
@@ -243,8 +262,12 @@ using namespace std;
      
      switch(option){
      
-           
-         case '1' :  //option Insert a new item
+         case '1' :  //option Create a stack which calls the function Stack(recursive)
+         {
+           Stack();
+           break;
+         } 
+         case '2' :  //option Insert a new item
          {
            int item;
            cout<<"\nEnter an item :\n";
@@ -253,20 +276,21 @@ using namespace std;
          }
            
            
-         case '2': {  //option Get the stack top
+         case '3': {  //option Get the stack top
 
-           cout<<s.Peek()<<"\n";break;
+           s.Peek();
+           break;
          }
            
             
            
-         case '3': {  //option Remove the stack top------- 
+         case '4': {  //option Remove the stack top------- 
            s.Pop(); 
            break;
          }
            
            
-         case '4' : //option Empty the stack------------
+         case '5' : //option Empty the stack------------
          {
           s.MakeEmpty();
           break;
@@ -274,7 +298,7 @@ using namespace std;
          }
            
            
-         case '5' : //option Test wether the stack is empty or not------------
+         case '6' : //option Test wether the stack is empty or not------------
          {
           if(s.IsEmpty())
            writeInformation("","The Stack is Empty"); 
@@ -283,7 +307,7 @@ using namespace std;
            
            
            
-         case '6' :     //option Test wether the stack is full or not------------
+         case '7' :     //option Test wether the stack is full or not------------
          {
           if(s.IsFull())
             writeInformation("","The Stack is full"); 
@@ -292,7 +316,7 @@ using namespace std;
            
            
            
-         case '7' : {s.Display(); break;} //option Dispaly the stack content------------
+         case '8' : {s.DisplayStack(); break;} //option Display the stack content------------
      
          }
        

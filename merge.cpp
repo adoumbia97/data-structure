@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
-void merge(int *,int, int , int );
+
+void merge(int *,int, int , int );              //Declartion of the procedure merge
+
+/*
+* Procedure merge_sort
+* Parameter needed : array to be merged, the lowest and highest value in the array
+
+*/
 void merge_sort(int *arr, int low, int high)
 {
     int mid;
@@ -13,7 +20,12 @@ void merge_sort(int *arr, int low, int high)
         merge(arr,low,high,mid);
     }
 }
-// Merge sort 
+
+
+/*
+*   Procedure merge to merge  
+*   Parameter needed is : array, lowest and highest value in the array and the middle value
+*/ 
 void merge(int *arr, int low, int high, int mid)
 {
     int i, j, k, c[50];
@@ -46,11 +58,21 @@ void merge(int *arr, int low, int high, int mid)
         arr[i] = c[i];
     }
 }
-// read input array and call mergesort
+
+
+/*
+    Procedure Merge: Which is called in the main program
+    Ask the user the number of the elements to sort
+    Sort the elemens using  merge_sort 
+    Print the sorted arrat at the screen
+    return 0
+  */
 int Merge()
 {
+     writeTitle("Welcome to Merging sort");
+    
     int myarray[30], num;
-    cout<<"Enter number of elements to be sorted:";
+    cout<<"Enter number of elements to be sorted: \n";
     cin>>num;
     cout<<"Enter "<<num<<" elements to be sorted:";
     for (int i = 0; i < num; i++) { cin>>myarray[i];

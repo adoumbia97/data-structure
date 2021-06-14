@@ -1,22 +1,19 @@
 
 //########################################################
-//#                Queue function                         #
+//#                Section of Queue                        #
 //########################################################
 #include <bits/stdc++.h>
  
 using namespace std;
-#define MAX 2
+#define MAX_DATA_SIZE 1000
 
-class QueueType{ // class declaration
-  
-  
-  int number_of_elements;
+//Creation of the class Queutype for creating Queue
+class QueueType{ 
+  //Local variables
+  int max_element_of_queue;
   int arr[MAX_DATA_SIZE];
-
-
   int rear;
   int front;
-  int a[MAX];
   int counter;
   
 public: //public variables
@@ -29,40 +26,44 @@ public: //public variables
   bool IsFull();
   void Enqueue(int elt);
   void Dequeue();
-  void Display();
+  void DisplayQueue();
   int Peek();
   int NbElements();
   int Size();
   void result(string result);
   
-  
-  
-  
-  
-  
 };
 
+/*
 
-QueueType::QueueType(int size){ //class constructor
-    number_of_elements = size;
+  * Constructor of the class QueueType
+  * The parameter size is the Maimu of the number of the element in the Queue
+  * At initial, the rear and the front ot the queue are : -1; and the number of element is : 0
+
+ */
+QueueType::QueueType(int size){
+    max_element_of_queue = size;
     rear = -1;
     front = -1;
     counter = 0;
     
   }
   
-  //remove the queue front--------------------  
+   /*   
+        Method Dequeue which removes element from the Queue :
+        At each remove, the value of front increases in 1 and the number of element decreases in 1
+        The number of the element in the stack(count) decreases in 1
+        it uses the function writeInformation and writeResult from the file write
+   */
   
   void QueueType::Dequeue(){
 
      if(IsEmpty()){
-      cout<<"\n \t \t \t \t ################### The queue is empty. \t ###################\\n";
+      writeInformation("Error !!!","The Queue is Empty");
     }
     else
     {
-      cout<<"\n \t \t \t \t \t Removing "<<arr[front]<<"\n";
-
-      cout<<"\n \t \t \t \t \t Element deleted from queue is : "<< arr[front] <<endl;
+      writeResult("Removing",arr[front], "Removed");
       front++;
       counter--;
     }
@@ -71,15 +72,21 @@ QueueType::QueueType(int size){ //class constructor
     
   }
   
-  // Insert an element at the rear of the queue---------------------------------
-  
+   /*   
+        Method Endqueue to insert element into the Queue
+        The parameter needed is the element to add in the Queue:Integer
+        if the Queue is empty : The variables front, rear = 0, and the number of element increases(counter) in 1 
+        iF the Queue in not empty : Only the variable rear and he number of element increases(counter)  increases in 1 after the insertion if the Queu is not empty
+        it uses the function writeInformation and writeInsertion from the file write
+   */
+
   void QueueType::Enqueue(int elt){
     if(IsFull()){
-      cout<<"\n \t \t \t \t ###################  The queue is full. ###################\n";
+      writeInformation("Error !!!","The Stack is full"); 
     }
     else if (front == -1) //If the queue is empty
     {
-      cout<<"\n \t \t \t \t ###################   Element inserted : "<< elt << "\t ###################\n";
+      writeInsertion(elt);
       front =  0;
       rear = 0 ; 
       arr[rear] = elt;
@@ -88,7 +95,7 @@ QueueType::QueueType(int size){ //class constructor
    
     else
     {
-    cout<<"\n \t \t \t \t ###################   Element inserted : "<< elt << "\t ###################\n";
+    writeInsertion(elt);
     rear= rear + 1;
     arr[rear] = elt;
     counter++;
@@ -96,85 +103,160 @@ QueueType::QueueType(int size){ //class constructor
     
   }
   
-  //make empty the queue---------------------------------
+  /*
+    Method MakeEmpty will remove every element in the Queue
+    Initialise the variable front, rearm and counter at their initial values
+    Return nothing and no need of parameter
+
+  */
   
   void QueueType::MakeEmpty(){
     front = rear=-1;
-    counter = - 1;
-    cout<<"\n \t \t \t \t ###################  Queue emptied. \t ###################\n";
-  };
+    counter = 0;
+    writeInformation("","Queue Emptied"); 
+  }
   
-  //return front element---------------------------------
+  /*
+    Method Peek: Return the value of the front of the Queue :Integer
+    No need of parameter
+  */
   
   int QueueType::Peek(){
     if(IsEmpty()){
-      cout<<"\nThe queue is empty.\n";
-      exit(EXIT_FAILURE);
+      writeInformation("Error !!!","The Queue is Empty"); 
+    }
+    else{
+       writeResult("The front is : ", arr[front],"");
+      
     }
     return arr[front];
-    
   }
   
-  //The number of elements in the  queue.---------------------------------
+  /*
+    Method NbElements: Return the number of element in the Queue : Integer
+    No need of parameter
+  */
+   
   
   int QueueType::NbElements(){
-    return counter+1;
+    return counter;
   }
   
-  //queue size---------------------------------
+  /*
+    Method size: Return the size of the maximum of the elements of the Queue : Integer
+    No need of parameter
+  */
   
   int QueueType::Size(){
-    return number_of_elements;
+    return max_element_of_queue;
   }
 
-  void QueueType::Display(){
+   /*
+    Method Display: Print in the screen the elements inside the stack
+    It first checks if the stack is empty or not
+    No need of parameter
+    it uses the functions writeResult and writeInformation from the file write
+  */
+
+  void QueueType::DisplayQueue()
+  {
       if(IsEmpty()){
-        cout<<" \n \t \t \t \t ################### Queue is empty ###################\n";
+        writeInformation("Error !!!","The QueueType is Empty");
       }
       else{
-         cout<<"\n \t \t \t \t ################### Queue elements are : \t ###################\n";
+        writeResult("The size of the Queue is : ", Size(),"The items actually inside are : ", NbElements());
          for (int i = front; i <= rear; i++)
-         cout<<arr[i]<<"\t";
-         cout<<endl;
+          cout <<"\n\t\t\t\t\t\t\t\t\t  " <<arr[i] <<"\n";
       }
+
+      cout<<"\n\t\t\t\t\t\t\t---------------------------------------- \n";
 
   
     
   };
   
-  //check if the queue is empty---------------------------------
+  /*
+    Method IsEmpty: Checks either the Queue is empty or not
+    No need of parameter
+    Return boolean 
+  */ 
   
   bool QueueType::IsEmpty(){
     return (front == - 1 || front > rear);
 
   }
   
-  //check if the queue is full---------------------------------
+  /*
+    Method IsFull: Checks either the Queue is full or not
+    No need of parameter
+    Return boolean 
+  */ 
   
   bool QueueType::IsFull(){
-    return ( counter == number_of_elements);
+    return ( counter == max_element_of_queue);
   }
 
 
 
  
-// calling the QueueType using the void method ------------------------
 
+ /*
+    Procedure Queue: Which is called in the main program
+    Ask the use the size of the stack: Size of the array
+    Ask either to implements randomly or not
+    Menu of the stack for the manipulation of the stack
+  */
 void Queue(){
   
-  //Home Menu-------------------------------------------------------
+    //Declaration of variables
+    char option = '+'; 
+    int size = 0; 
+    string randomly;
+
+
+    writeTitle("Welcome to Queue secion");
+    cout <<"\nEnter the queue size :\n";
+    cin >> size; 
+
+    // Check the value from the user is an integer and not more than the size of the array of implementation
+    while(cin.fail() || size>MAX_DATA_SIZE)                                    
+    {
+      cout <<"The value you enter is not either an inter or > 1000 correct \n";
+      cin.clear();
+      cin.ignore(256,'\n');
+      cin >> size;
+    }
+
   
-  cout<<"\n-----------------------------------------";
-  cout<<"\n|     Welcome to the Queue function of fofvi    |\n";
-  cout<<"\n-----------------------------------------";
-  cout<<"\n ";
-  char option = '+'; //character declaration
-  int size = 0; //queue size initialization
-  cout <<"\nEnter the queue size :\n";
-  cin >> size; // this will allow the user to choose the size of the queue
-  QueueType q(size); //create a queue with the size chosen by the user
-  cout<<"\n------------------------\n";
-// Queue operations defintions --------------------------------------
+    //Creation of the Queue with a size from the user
+    QueueType q(size);
+    cout<<"\n------------------------\n";
+
+
+
+    // Implements the stack randomly or not
+    cout<<"Do you want to fill it randomly? Y/N \n";
+    cin >>randomly;
+    if(randomly=="Y" || randomly=="y")
+    {
+      for (int i = 0; i < size; ++i)
+      {
+        q.Enqueue(rand() % 100);
+        /* code */
+      }
+    }
+    else{
+      for (int i = 0; i < size; ++i)
+      {
+        int value;
+        cout <<"Enter the elements \n";
+        cin >> value;
+
+        q.Enqueue(value);
+        /* code */
+      }
+    }
+// Menus options of the Queue --------------------------------------
   while (option != 's'){
     cout<<("\n \t \tSelect a queue operation :\n");
     cout<<"\n------------------------";
@@ -193,74 +275,56 @@ void Queue(){
     //option implementation -----------------------------------
     
     switch(option){
-    
-    //option create a queue
-    
-    case '1' : { 
-      cout <<"\nEnter the queue size :\n";
-      cin >> size; // this will allow the user to choose the size of the queue
-      QueueType q(size); //create a queue with the size chosen by the user
 
-      cout<<"\n \t \t \t \t ###################  Queue created.\t ################### \n";break;}
+    
+    case '1' : {                //option create a new queue which calls the function Queue(Recursive)
+      Queue();break;}
+
       
-      //option Insert a new element
-      
-    case '2' : {
+    case '2' : {                //option Insert a new element
       int elt;
-      string wantToinsert="f";
-      do
-      {
-        cout<<"\nEnter an elt :\n";
-        cin >> elt;
-        q.Enqueue(elt);
-        cout <<"Do you want to insert again? \n";
-        cin >>wantToinsert;
-        if(wantToinsert=="y"){wantToinsert="y";} 
-        /* code */
-      } while (wantToinsert=="y");
-        
+      cout<<"\nEnter an elt :\n";
+      cin >> elt;
+      q.Enqueue(elt);
+       
       break;}
-      //option Get the queue front
       
-    case '3': {
-      cout<<"\n \t \t \t \t ################### The front of the Queue is : "<<q.Peek()<<"\t ################### \n";break;
+      
+    case '3': {                 //option Get the front value of the Queue
+      q.Peek();
+      break;
     }
+  
       
-      //option Remove the queue front
-      
-    case '4': {
+    case '4': {                //option Remove from the Queue
       q.Dequeue();
       break; 
     }
       
-      //option Empty the queue
+    case '5' : {q.MakeEmpty(); break;}      //option Empty the queue
       
-    case '5' : {q.MakeEmpty(); break;}
       
-      //option Test wether the queue is empty or not.
-      
-    case '6' : 
+    case '6' :                              //Tester either the Queue is empty or not     
     {
-      if(q.IsEmpty()){cout<<"\n \t \t \t \t ################### The queue is empty. \t ################### \n"; }
+      if(q.IsEmpty()){writeInformation("","The Queue is Empty"); }
       
-      else{cout<<"\n \t \t \t \t ###################  The queue is not empty.\t ################### \n";}  
+      else{writeInformation("","The Stack is not Empty");}  
       break;
     }
       
-      //option Test wether the queue is full or not.
       
-    case '7' : {if(q.IsFull())
-      cout<<"\n \t \t \t \t ###################  The queue is full.\t ################### \n";
-    else cout<<"\n \t \t \t \t ###################  The queue is not full.\t ################### \n"; break;}
+    case '7' :                               //Test either the Queue is full or not
+    {
+      if(q.IsFull())
+      writeInformation("","The Queue is full");
+      else writeInformation("","The Queue is not full");
+      break;
+    }
       
-      // Print all the elements of the queue
       
-    case '8' : { 
-      q.Display();break;}
+    case '8' : {                               // Print all the elements of the queue
+      q.DisplayQueue();break;}                       
       
-      // option stop
-      
-    s:;
     }
       
     } 
